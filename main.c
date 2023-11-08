@@ -6,9 +6,6 @@
 //#include "./headers/sajat_adatok.h"
 
 
-
-
-
 void clear(){
     printf("\e[2J");
 }
