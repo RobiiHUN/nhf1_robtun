@@ -8,6 +8,7 @@
 
 
 
+
 void clear(){
     printf("\e[2J");
 }
