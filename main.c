@@ -60,6 +60,7 @@ int main(){
     int lepes_s;
     int valasztas_u;
     Hallgatok_alapadatok hallgato;
+    int vissza  = csv_sorolvaso(alapadatok_fajl, &hallgato);
 //  --------------------------- FOMENU ---------------------------
 
 
@@ -77,7 +78,7 @@ int main(){
             if (lepes_s == 1){
                 
                 
-                int vissza  = csv_sorolvaso(alapadatok_fajl, &hallgato);
+                
                 if (vissza == 1){
                     printf("\033[5A"); //ennyi sorral megyunk feljebb
                     printf("\033[J"); 
@@ -158,7 +159,27 @@ int main(){
             printf("\033[2A"); //ennyi sorral megyunk feljebb
             printf("\033[J");
 
-            printf("A jelenlegi feleved: %d", hallgato.felev_tipusa);
+
+
+            if (hallgato.felev_tipusa == 0){
+                printf("A jelenlegi feleved: Passziv");
+                fprintf(log, "%s   -   A felhasznalo kiiratta a feleve tipusat!\n", pontos_ido());
+            }else if (hallgato.felev_tipusa == 1)
+            {
+                printf("A jelenlegi feleved: Aktiv\n \n");
+                fprintf(log, "%s   -   A felhasznalo kiiratta a feleve tipusat!\n", pontos_ido());
+                //printf("Szeretned passzivaltatni a felevedet?(I/N) \n");
+                
+                //be_kiiratkozas(alapadatok_fajl, &hallgato, 1);
+                
+                
+                
+                
+
+
+            }
+            
+
             
 
 

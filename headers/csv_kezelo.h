@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 typedef struct
 {
@@ -25,4 +26,11 @@ int csv_sorolvaso(FILE *fajlnev, Hallgatok_alapadatok *hallgato_adatok){
 int csv_alapadat_kiir(FILE *fajlnev, char *nev_vez, char *nev_ker,int neptunkod, int felev_tipusa){
     fprintf(fajlnev, "%s %s, %d, %d\n", nev_vez, nev_ker, neptunkod, felev_tipusa);
     return 0;   
+}
+
+
+int be_kiiratkozas(FILE *fajlnev, Hallgatok_alapadatok *hallgato, const char *uj_ertek )
+{
+    strncpy(hallgato -> felev_tipusa, uj_ertek, sizeof(hallgato->felev_tipusa)-1);
+    return 0;
 }
