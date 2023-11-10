@@ -75,7 +75,7 @@ int tanulmanyok_menu(){
     {
         printf("1 - Kepzes adatok\n");
         printf("2 - Orarend\n");
-        printf("3- szakdolgozat jelentkezes\n");
+        printf("3 - Vissza a fomenube\n");
         scanf("%d", &valasztas);
 
     }
