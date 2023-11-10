@@ -1,4 +1,4 @@
-gcc /Users/otvosrobert/Desktop/nhf1_robtun/main.c  /Users/otvosrobert/Desktop/nhf1_robtun/headers/ido.c  -o test
+gcc /Users/otvosrobert/Desktop/nhf1_robtun/main.c  /Users/otvosrobert/Desktop/nhf1_robtun/headers/ido.c /Users/otvosrobert/Desktop/nhf1_robtun/headers/csv_kezelo.c   -o test
 cd Desktop/nhf1_robtun
 ./test
 
