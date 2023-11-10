@@ -8,7 +8,7 @@
 
 int fomenu_fgv(){
     int valasztas = 0;
-    char szam_e = "";
+    char szam_e;
 
     
     

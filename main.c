@@ -84,7 +84,7 @@ int main(){
                     printf("\033[J"); 
                     fprintf(log, "%s   -   A felhasznalo kiiratta a sajat adatait\n", pontos_ido());
                     
-                    printf("\nNév: %s, Neptun %d, Felev_tipusa: %d\n", hallgato.nev, hallgato.neptun_kod, hallgato.felev_tipusa);
+                    printf("\nNév: %s, Neptun %d, Felev tipusa: %d, Felev: %d\n", hallgato.nev, hallgato.neptun_kod, hallgato.felev_tipusa, hallgato.felev);
 
                 }else{
                     alapadatok_fajl_w = fopen("./csv/alapadatok.csv", "w");
@@ -100,7 +100,7 @@ int main(){
                     char nev_vez[100];
                     char nev_ker[100];
                     int neptun;
-                    int felev = 0;
+                    int felev;
                     
                     
                     printf("\nVezeteknev: \n");
@@ -112,9 +112,11 @@ int main(){
                     printf("Kerem adja meg a Neptun-kodjat: \n");
                     scanf("%d", &neptun);
 
+                    printf("Kerem adja meg a hanyadik felevet tolti az egyetemen!: \n");
+                    scanf("%d", &felev);
                     
                     
-                    csv_alapadat_kiir(alapadatok_fajl_w, nev_vez, nev_ker, neptun, felev);
+                    csv_alapadat_kiir(alapadatok_fajl_w, nev_vez, nev_ker, neptun, 0, felev);
                     printf("\033[10A"); //ennyi sorral megyunk feljebb
                     printf("\033[J");
                     printf("\nAz adatok sikeresen el lettek mentve!\n");
@@ -170,7 +172,7 @@ int main(){
                 fprintf(log, "%s   -   A felhasznalo kiiratta a feleve tipusat!\n", pontos_ido());
                 //printf("Szeretned passzivaltatni a felevedet?(I/N) \n");
                 
-                //be_kiiratkozas(alapadatok_fajl, &hallgato, 1);
+                //be_kiiratkozas(alapadatok_fajl_w, "test", 123, 0);
                 
                 
                 
