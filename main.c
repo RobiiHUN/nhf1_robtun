@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "./headers/menu.h"
 #include "./headers/ido.h"
 #include "./headers/csv_kezelo.h"
@@ -21,10 +22,12 @@ int main(){
     FILE *alapadatok_fajl;
     FILE *log;
     FILE *alapadatok_fajl_w;
+    FILE *tantargyak_r;
 
     log = fopen("main.log", "w");
     logo_pointer = fopen("./start/logo.txt", "r");
     alapadatok_fajl = fopen("./csv/alapadatok.csv", "r");
+    tantargyak_r = fopen("./csv/tantargyak.csv", "r");
     
     
 
@@ -54,13 +57,17 @@ int main(){
         fprintf(log, "%s   -   Nem sikerult beolvasni a logo fajlt!\n", pontos_ido());
     }
     fclose(logo_pointer);
-
+// ------------------------------------------------------------------
 
 
     int lepes_s;
     int valasztas_u;
     Hallgatok_alapadatok hallgato;
     int vissza  = csv_sorolvaso(alapadatok_fajl, &hallgato);
+
+    char max_sor[50];
+    int hanytantargy = 0;
+    Tantargy_struct *orarend = NULL;
 //  --------------------------- FOMENU ---------------------------
 
 
@@ -142,6 +149,41 @@ int main(){
         case 2:
             tanulmanyok_menu();
             fprintf(log, "%s   -   A felhasznalo belepett a tanulmanyok almenube\n", pontos_ido());
+
+            while (fgets(max_sor, 50, tantargyak_r))
+            {
+                orarend = (Tantargy_struct *)realloc(orarend, (hanytantargy + 1) * sizeof(Tantargy_struct));
+                orarend[hanytantargy].nev[0] = '\0';
+                for (int i = 0; i < 7; i++)
+                {
+                    for (int j = 0; j < 24; j++)
+                    {
+                        orarend[hanytantargy].napok[i][j] = 0;
+                    }
+                    
+                }
+                
+                char* token = strtok(max_sor, ",");
+                strcpy(orarend[hanytantargy].nev, token);
+
+                int nap = 0;
+                while ((token = strtok(NULL, ",")) != NULL)
+                {
+                    int ora = atoi(token); //int-e konvertaljuk
+                    orarend[hanytantargy].napok[nap][ora] = 1;
+                    nap = (nap + 1) % 7;
+                }
+                hanytantargy++;
+            }
+            
+            orarend_konv_print(orarend, hanytantargy);
+
+
+
+
+
+
+
             break;
         case 3:
             vizsgak_menu();
@@ -222,9 +264,11 @@ int main(){
 
 
 
-
+    fclose(tantargyak_r);
     fclose(alapadatok_fajl);
     fclose(alapadatok_fajl_w);
     fclose(log);
+
+    free(orarend);
     return 0;
 }//main vege

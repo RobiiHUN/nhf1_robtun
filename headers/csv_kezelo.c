@@ -38,13 +38,6 @@ int csv_alapadat_kiir(FILE *fajlnev, char *nev_vez, char *nev_ker,int neptunkod,
 }
 
 
-// int be_kiiratkozas(FILE *fajlnev, char *nev, int* neptun, int felev_tipusa)
-// {
-//     strncpy(hallgato -> felev_tipusa, uj_ertek, sizeof(hallgato->felev_tipusa)-1);
-//     fprintf(fajlnev, "%s,%d,%d\n", nev, neptun, felev_tipusa);
-
-//     return 0;
-// }
 
 int orarend_konv_print(Tantargy_struct *orarend, int hanytantargy){
     
@@ -87,12 +80,13 @@ int orarend_konv_print(Tantargy_struct *orarend, int hanytantargy){
                     }
                     printf("\n");
                 }
+                
 
             }
-            printf("\n");
+            //printf("\n");
             
         }
-        
+        printf("\n");
     }
     
     return 0;    
