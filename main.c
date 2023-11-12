@@ -4,9 +4,11 @@
 #include "./headers/menu.h"
 #include "./headers/ido.h"
 #include "./headers/csv_kezelo.h"
-//#include "./headers/sajat_adatok.h"
+#include "./headers/debugmalloc.h"
 
 
+
+//kijelzo torlo fgv
 void clear(){
     printf("\e[2J");
 }
@@ -15,15 +17,15 @@ void clear(){
 
 
 
-// -------------------------  MAIN  ------------------------------
+// ------------------------------------------------------  MAIN  -------------------------------------------------------
 int main(){
-//system("clear");
+        //file beolvasasok
     FILE *logo_pointer;
     FILE *alapadatok_fajl;
     FILE *log;
     FILE *alapadatok_fajl_w;
     FILE *tantargyak_r;
-
+        //fajladatok eltarolasa
     log = fopen("main.log", "w");
     logo_pointer = fopen("./start/logo.txt", "r");
     alapadatok_fajl = fopen("./csv/alapadatok.csv", "r");
@@ -31,7 +33,7 @@ int main(){
     
     
 
-    clear();
+    //clear();
 
     
 
@@ -73,6 +75,9 @@ int main(){
 
     int fomenu_cel = fomenu_fgv();
     fprintf(log, "%s   -   A menusor ki lett irva a felhasznalonak\n", pontos_ido());
+        
+        //fomenu fgv behivasa,  majd a felhasznalo eldonti, mit szeretne csinalni
+
 
     switch (fomenu_cel)
     {
@@ -101,7 +106,8 @@ int main(){
 
                     
                     
-                    //ki kell szurni a nem megfelo bemenetet
+                    // TODO ki kell szurni a nem megfelo bemenetet
+                    //ha meg nem csinalt robtun fiokot
                     
                     printf("Ugy latszik, on most nyitja meg elosszor a Robtunt!\nKerem regisztralja magat!\n");
                     char nev_vez[100];
@@ -109,7 +115,7 @@ int main(){
                     int neptun;
                     int felev;
                     
-                    
+                    //bekerjuk a fobb adatokat
                     printf("\nVezeteknev: \n");
                     scanf("%s", nev_vez);
 
@@ -128,6 +134,7 @@ int main(){
                     printf("\033[J");
                     printf("\nAz adatok sikeresen el lettek mentve!\n");
                     fprintf(log, "%s   -   A felhasznalo sikeresen regisztralt!\n", pontos_ido());
+                    //megtortent a regisztraáció
 
                 }
                 
@@ -150,6 +157,8 @@ int main(){
             tanulmanyok_menu();
             fprintf(log, "%s   -   A felhasznalo belepett a tanulmanyok almenube\n", pontos_ido());
 
+
+            //orarend megalkotasa, majd kiiratása a csv-ból
             while (fgets(max_sor, 50, tantargyak_r))
             {
                 orarend = (Tantargy_struct *)realloc(orarend, (hanytantargy + 1) * sizeof(Tantargy_struct));
@@ -219,7 +228,7 @@ int main(){
                 
                 
                 
-
+                //TODO beiratkozas
 
 
             }
@@ -235,31 +244,6 @@ int main(){
         
         
         }
-
-
-
-
-
-        
-        
-        
-        
-        
-
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
 
 
 
