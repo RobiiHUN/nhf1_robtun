@@ -2,10 +2,10 @@
 #include <ctype.h>
 #include <stdbool.h>
 
+//meg a vissza a fomenube funkcio fejlesztes alatt van!
 
 
-
-
+//az egesz program menurendszere kezdodik itt, amely a megnyitaskor latszik
 int fomenu_fgv(){
     int valasztas = 0;
     char szam_e;
@@ -42,7 +42,7 @@ int fomenu_fgv(){
 
 }
 
-
+// a sajat adatok almenu fgv-e, majd a beolvasas utan visszatoroljuk a bemenetet
 int sajat_adatok_menu(){
     
     int valasztas_sajatadatok = 0;
@@ -67,7 +67,7 @@ int sajat_adatok_menu(){
     }
     return valasztas_sajatadatok;
 }
-
+//tanulmanyok menu
 int tanulmanyok_menu(){
     int valasztas = 0;
 
@@ -82,7 +82,7 @@ int tanulmanyok_menu(){
     return valasztas;
     
 }
-
+//vizsgak mennu
 int vizsgak_menu(){
     int valasztas = 0;
 
@@ -95,7 +95,7 @@ int vizsgak_menu(){
     }
     return valasztas;
 }
-
+// targyak menu
 int targyak_menu(){
     int valasztas = 0;
 
@@ -108,7 +108,7 @@ int targyak_menu(){
     }
     return valasztas;
 }
-
+//ugyintezes menu
 int ugyintezes_menu(){
     int valasztas = 0;
 
@@ -121,7 +121,7 @@ int ugyintezes_menu(){
     return valasztas;
 }
 
-
+//a beallitasok almenu
 int beallitasok_almenu(){
     int valasztas = 0;
 
@@ -136,7 +136,7 @@ int beallitasok_almenu(){
     printf("\033[J");    
     return valasztas;
 }
-
+//a beiratkozas almenu
 int beiratkozas_almenu(){
     int valasztas = 0;
 
@@ -147,8 +147,7 @@ int beiratkozas_almenu(){
         scanf("%d", &valasztas);
     }
 
-    // printf("\033[3A"); //ennyi sorral megyunk feljebb
-    // printf("\033[J"); 
+
     return valasztas;
     
 

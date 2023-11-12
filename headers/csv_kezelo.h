@@ -23,5 +23,4 @@ typedef struct
 int csv_sorolvaso(FILE *fajlnev, Hallgatok_alapadatok *hallgato_adatok);
 int csv_alapadat_kiir(FILE *fajlnev, char *nev_vez, char *nev_ker,int neptunkod, int felev_tipusa, int felev);
 int orarend_konv_print(Tantargy_struct *orarend, int hanytantargy);
-//int be_kiiratkozas(FILE *fajlnev, char *nev, int* neptun, int felev_tipusa);
 #endif

@@ -271,7 +271,7 @@ static void debugmalloc_atexit_dump(void) {
                         "\n");
         debugmalloc_dump();
     } else {
-        debugmalloc_log("****************************************************\n"
+        debugmalloc_log("\n\n****************************************************\n"
                         "* Debugmalloc: nincs memoriaszivargas a programban.\n"
                         "* Osszes foglalas: %d blokk, %d bajt.\n"
                         "****************************************************\n",

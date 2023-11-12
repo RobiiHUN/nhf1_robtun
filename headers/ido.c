@@ -3,7 +3,7 @@
 #include <time.h>
 
 
-
+//a pontos idot hatarozzuk meg ezzel a fgv-el ev-honap-nap-ora-perc-mp. Ez a log miatt fontos
 char* pontos_ido(){
     time_t idozito;
     char* ido = (char*) malloc(26);

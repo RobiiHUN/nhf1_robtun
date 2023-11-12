@@ -32,6 +32,7 @@ int main(){
     tantargyak_r = fopen("./csv/tantargyak.csv", "r");
     
     
+    
 
     //clear();
 
@@ -77,6 +78,7 @@ int main(){
     fprintf(log, "%s   -   A menusor ki lett irva a felhasznalonak\n", pontos_ido());
         
         //fomenu fgv behivasa,  majd a felhasznalo eldonti, mit szeretne csinalni
+        //main header fajlbol
 
 
     switch (fomenu_cel)
@@ -159,6 +161,7 @@ int main(){
 
 
             //orarend megalkotasa, majd kiiratása a csv-ból
+            //todo az orarend almenube kell rakni
             while (fgets(max_sor, 50, tantargyak_r))
             {
                 orarend = (Tantargy_struct *)realloc(orarend, (hanytantargy + 1) * sizeof(Tantargy_struct));
@@ -246,13 +249,13 @@ int main(){
         }
 
 
-
-
+    
+    debugmalloc_log_file("main.log");
     fclose(tantargyak_r);
     fclose(alapadatok_fajl);
     fclose(alapadatok_fajl_w);
     fclose(log);
 
-    free(orarend);
+   
     return 0;
 }//main vege
