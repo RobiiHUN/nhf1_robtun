@@ -6,12 +6,13 @@
 #include "./headers/csv_kezelo.h"
 #include "./headers/debugmalloc.h"
 
+#define KEK_SZIN  printf ("\x1b[34m");
+#define SZIN_VISSZA printf ("\x1b[0m");
+#define KIJELZO_TORLO printf("\e[2J");
 
 
 //kijelzo torlo fgv
-void clear(){
-    printf("\e[2J");
-}
+
 
 
 
@@ -32,9 +33,11 @@ int main(){
     tantargyak_r = fopen("./csv/tantargyak.csv", "r");
     
     
-    
+    //megvaltoztatjuk a kiiratas szinet kek-re
+    KEK_SZIN
 
-    clear();
+    //kijelzo torlese
+    KIJELZO_TORLO
 
     
 
@@ -60,6 +63,8 @@ int main(){
         fprintf(log, "%s   -   Nem sikerult beolvasni a logo fajlt!\n", pontos_ido());
     }
     fclose(logo_pointer);
+    //visszaalitjuk a szint az eredetire
+    SZIN_VISSZA
 // ------------------------------------------------------------------
 
 
