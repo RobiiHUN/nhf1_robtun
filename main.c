@@ -249,7 +249,7 @@ int main(){
         }
 
 
-    
+    free(orarend);
     debugmalloc_log_file("main.log");
     fclose(tantargyak_r);
     fclose(alapadatok_fajl);
