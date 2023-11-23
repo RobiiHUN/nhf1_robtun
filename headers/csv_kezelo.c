@@ -123,20 +123,7 @@ int orarend_konv_print(Tantargy_struct *orarend, int hanytantargy){
 
 //felvett vizsgak kiiratasa consoleba
 
-void felvett_vizsg_print(Vizsgak *vizsga, int vizsgaszam){
-    if (vizsgaszam > 0)
-    {
-        printf("A felvett vizsgák:\n");
-        for (int i = 0; i < vizsgaszam; i++)
-        {
-            printf("%d. %s - %s %d ora\n", i+ 1, vizsga[i].nev, vizsga[i].nap, vizsga[i].ora);
-        }
-        
-    }else{
-        printf("Meg nem vettel fel vizsgat!\n");
-    }
-    
-}
+
 
 //felvett vizsgak mentese .csv-be
 void mentes_vizsga(Vizsgak *vizsga, int vizsgaszam, FILE *csvpointer){
@@ -154,6 +141,9 @@ void mentes_vizsga(Vizsgak *vizsga, int vizsgaszam, FILE *csvpointer){
     
 }
 
+/* -------------------------------------------------------------------------- */
+/*                                EZZEL MI VAN    ????                        */
+/* -------------------------------------------------------------------------- */
 
 //vizsgak beolvasasa .csv-bol
 

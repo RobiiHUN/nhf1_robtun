@@ -1,3 +1,13 @@
+/* -------------------------------------------------------------------------- */
+/*                                ÖTVÖS RÓBERT                                */
+/*                                   F9ILEX                                   */
+
+/* -------------------------------------------------------------------------- */
+/*                               ROBTUN PROJECT                               */
+/* -------------------------------------------------------------------------- */
+
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -120,6 +130,7 @@ int main(){
                     printf("\nNév: %s, Neptun %s, Felev tipusa: %d, Felev: %d\n", hallgato.nev, hallgato.neptun_kod, hallgato.felev_tipusa, hallgato.felev);
 
                 }else{
+                    /* ------------------------------ REGISZTRACIO ------------------------------ */
                     alapadatok_fajl_w = fopen("./csv/alapadatok.csv", "w");
                     printf("\033[4A"); //ennyi sorral megyunk feljebb
                     printf("\033[J");
@@ -129,6 +140,18 @@ int main(){
                     
                     // TODO ki kell szurni a nem megfelo bemenetet
                     //ha meg nem csinalt robtun fiokot
+                    //TODO esetleg ezt megtudjuk hivni ezt a dinamikus tombot mindig?
+
+
+
+
+
+
+
+
+
+
+
                     
                     printf("Ugy latszik, on most nyitja meg elosszor a Robtunt!\nKerem regisztralja magat!\n");
                     char nev_vez[50];
@@ -175,12 +198,13 @@ int main(){
             }
             break;
         case 2:
+
             /* -------------------------------------------------------------------------- */
             /*                                 TANULMANYOK                                */
             /* -------------------------------------------------------------------------- */
+
             tanulmanyok_menu();
             fprintf(log, "%s   -   A felhasznalo belepett a tanulmanyok almenube\n", pontos_ido());
-
 
             //orarend megalkotasa, majd kiiratása a csv-ból
             //todo az orarend almenube kell rakni
@@ -196,7 +220,7 @@ int main(){
                     }
                     
                 }
-                
+        
                 char* token = strtok(max_sor, ",");
                 strcpy(orarend[hanytantargy].nev, token);
 
@@ -211,13 +235,6 @@ int main(){
             }
             
             orarend_konv_print(orarend, hanytantargy);
-
-
-
-
-
-
-
             break;
 
         case 3:
@@ -225,50 +242,58 @@ int main(){
             /*                                   VIZSGAK                                  */
             /* -------------------------------------------------------------------------- */
            
-            vizsgak_menu();
+            vissza = vizsgak_menu();
             fprintf(log, "%s   -   A felhasznalo belepett a vizsgak almenube\n", pontos_ido());
-            
-            FILE* vizsgak_fajl_w = fopen("csv/vizsgak.csv", "w");
 
-            //hany vizsgat szeretne felvenni
-            int vizsgak_szama;
-            printf("Kerem adja meg, hany vizsgat szeretne felvenni!: ");
-            scanf("%d", &vizsgak_szama);
-
-            //eltaroljuk egy tombbe
-            Vizsgak *vizsga = malloc(vizsgak_szama * sizeof(Vizsgak));
-            
-
-            //beolvassuk a felvett vizsgakat (ha van);
-            //felvett_vizsg_print(vizsga, vizsgak_szama);
-
-            for (int i = 0; i < vizsgak_szama; i++)
+            if (vissza == 1)
             {
-                //vizsga nevenek bekereseß
-                printf("Kerem adja meg a(z) %d. felvenni kivant vizsga nevet:  ", i + 1);
-                scanf("%s", vizsga[i].nev);
+                FILE* vizsgak_fajl_w = fopen("csv/vizsgak.csv", "w");
 
-                //vizsga napjanak bekerese
-                printf("Kerem adja meg a(z) %d. vizsga nepjat! (Hetfo, Kedd...):  ", i + 1);
-                scanf("%s", vizsga[i].nap);
+                //hany vizsgat szeretne felvenni
+                int vizsgak_szama;
+                printf("Kerem adja meg, hany vizsgat szeretne felvenni!: ");
+                scanf("%d", &vizsgak_szama);
 
-                //vizsga oraja
+                //eltaroljuk egy tombbe
+                Vizsgak *vizsga = malloc(vizsgak_szama * sizeof(Vizsgak));
+                
 
-                /* -------------------------------------------------------------------------- */
-                /*                                 KORLATOZAS                                 */
-                /* -------------------------------------------------------------------------- */
+                //beolvassuk a felvett vizsgakat (ha van);
+                //felvett_vizsg_print(vizsga, vizsgak_szama);
 
-                printf("Adja meg a(z) %d. vizsga, hogy mikor kezdődik! ", i + 1);
-                scanf("%d", &vizsga[i].ora);
+                for (int i = 0; i < vizsgak_szama; i++)
+                {
+                    //vizsga nevenek bekereseß
+                    printf("Kerem adja meg a(z) %d. felvenni kivant vizsga nevet:  ", i + 1);
+                    scanf("%s", vizsga[i].nev);
+
+                    //vizsga napjanak bekerese
+                    printf("Kerem adja meg a(z) %d. vizsga nepjat! (Hetfo, Kedd...):  ", i + 1);
+                    scanf("%s", vizsga[i].nap);
+
+                    //vizsga oraja
+
+                    /* -------------------------------------------------------------------------- */
+                    /*                                 KORLATOZAS HIANYZIK                        */
+                    /* -------------------------------------------------------------------------- */
+
+                    printf("Adja meg a(z) %d. vizsga, hogy mikor kezdődik! ", i + 1);
+                    scanf("%d", &vizsga[i].ora);
+                }
+                //csv-be lementjuk a vizsga bekert adatait
+                mentes_vizsga(vizsga, vizsgak_szama, vizsgak_fajl_w);
+
+                //vizsga_csv_beolvaso(&vizsga, &vizsgak_szama, vizsgak_fajl_w);
+
+
+                fclose(vizsgak_fajl_w);
+                free(vizsga); //nincs lefoglalva????
+            }else if(vissza == 2){
+                
+                FILE* vizsgak_fajl_w = fopen("csv/vizsgak.csv", "w");
+                fclose(vizsgak_fajl_w);
+                printf("Sikeresen leadtad a vizsgaidat!\n");
             }
-            mentes_vizsga(vizsga, vizsgak_szama, vizsgak_fajl_w);
-            
-
-
-
-
-
-
             break;
         case 4:
             /* -------------------------------------------------------------------------- */
@@ -291,7 +316,9 @@ int main(){
 
 
 
-
+            /* -------------------------------------------------------------------------- */
+            /*                                 BEIRATKOZAS                                */
+            /* -------------------------------------------------------------------------- */
 
             if (hallgato.felev_tipusa == 0){
                 alapadatok_fajl_w = fopen("./csv/alapadatok.csv", "w");
@@ -327,15 +354,28 @@ int main(){
         
         
         }
-
+    
+/* -------------------------------------------------------------------------- */
+/*                   MEMORIAFELSZABADITAS ES A PROGRAM VEGE                   */
+/* -------------------------------------------------------------------------- */
 
     free(orarend);
+    
+    
+    
     debugmalloc_log_file("main.log");
     fclose(tantargyak_r);
     fclose(alapadatok_fajl);
     fclose(alapadatok_fajl_w);
     fclose(log);
+    
 
    
     return 0;
 }//main vege
+
+
+/* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */

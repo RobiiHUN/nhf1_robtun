@@ -89,7 +89,7 @@ int vizsgak_menu(){
     while ( valasztas < 1 || valasztas > 2 )
     {
         printf("1 - Vizsga felvetel\n");
-        printf("2 - Vizsga leadas\n");
+        printf("2 - Vizsgak leadasa\n");
         scanf("%d", &valasztas);
 
     }
