@@ -11,14 +11,19 @@
 #define KIJELZO_TORLO printf("\e[2J");
 
 
-//kijelzo torlo fgv
 
 
 
 
 
 
-// ------------------------------------------------------  MAIN  -------------------------------------------------------
+
+/* -------------------------------------------------------------------------- */
+/*                                    MAIN                                    */
+/* -------------------------------------------------------------------------- */
+
+
+
 int main(){
         //file beolvasasok
     FILE *logo_pointer;
@@ -31,6 +36,7 @@ int main(){
     logo_pointer = fopen("./start/logo.txt", "r");
     alapadatok_fajl = fopen("./csv/alapadatok.csv", "r");
     tantargyak_r = fopen("./csv/tantargyak.csv", "r");
+    //alapadatok_fajl_w = fopen("./csv/alapadatok.csv", "w");
     
     
     //megvaltoztatjuk a kiiratas szinet kek-re
@@ -42,12 +48,12 @@ int main(){
     
 
 
-//  --------------------------- LOGO -----------------------------
+/* -------------------------------------------------------------------------- */
+/*                                    LOGO                                    */
+/* -------------------------------------------------------------------------- */
     
     
     char logo[100];
-
-   
     fprintf(log, "%s   -   Beovasas megtortent\n", pontos_ido());
 
     if (logo_pointer != NULL)
@@ -63,11 +69,10 @@ int main(){
         fprintf(log, "%s   -   Nem sikerult beolvasni a logo fajlt!\n", pontos_ido());
     }
     fclose(logo_pointer);
+    
     //visszaalitjuk a szint az eredetire
     SZIN_VISSZA
-// ------------------------------------------------------------------
-
-
+/* -------------------------------------------------------------------------- */
     int lepes_s;
     int valasztas_u;
     Hallgatok_alapadatok hallgato;
@@ -76,9 +81,15 @@ int main(){
     char max_sor[50];
     int hanytantargy = 0;
     Tantargy_struct *orarend = NULL;
-//  --------------------------- FOMENU ---------------------------
+/* -------------------------------------------------------------------------- */
 
 
+/* -------------------------------------------------------------------------- */
+/*                                   FOMENU                                   */
+/* -------------------------------------------------------------------------- */
+
+
+/* -------------------------------------------------------------------------- */
     int fomenu_cel = fomenu_fgv();
     fprintf(log, "%s   -   A menusor ki lett irva a felhasznalonak\n", pontos_ido());
         
@@ -89,6 +100,9 @@ int main(){
     switch (fomenu_cel)
     {
         case 1:
+        /* -------------------------------------------------------------------------- */
+        /*                                SAJAT ADATOK                                */
+        /* -------------------------------------------------------------------------- */
            
             lepes_s = sajat_adatok_menu();
             fprintf(log, "%s   -   A felhasznalo belepett a sajat adatok almenube\n", pontos_ido());
@@ -103,7 +117,7 @@ int main(){
                     printf("\033[J"); 
                     fprintf(log, "%s   -   A felhasznalo kiiratta a sajat adatait\n", pontos_ido());
                     
-                    printf("\nNév: %s, Neptun %d, Felev tipusa: %d, Felev: %d\n", hallgato.nev, hallgato.neptun_kod, hallgato.felev_tipusa, hallgato.felev);
+                    printf("\nNév: %s, Neptun %s, Felev tipusa: %d, Felev: %d\n", hallgato.nev, hallgato.neptun_kod, hallgato.felev_tipusa, hallgato.felev);
 
                 }else{
                     alapadatok_fajl_w = fopen("./csv/alapadatok.csv", "w");
@@ -117,9 +131,9 @@ int main(){
                     //ha meg nem csinalt robtun fiokot
                     
                     printf("Ugy latszik, on most nyitja meg elosszor a Robtunt!\nKerem regisztralja magat!\n");
-                    char nev_vez[100];
-                    char nev_ker[100];
-                    int neptun;
+                    char nev_vez[50];
+                    char nev_ker[50];
+                    char neptun[6];
                     int felev;
                     
                     //bekerjuk a fobb adatokat
@@ -130,7 +144,7 @@ int main(){
                     scanf("%s", nev_ker);
 
                     printf("Kerem adja meg a Neptun-kodjat: \n");
-                    scanf("%d", &neptun);
+                    scanf("%s", neptun);
 
                     printf("Kerem adja meg a hanyadik felevet tolti az egyetemen!: \n");
                     scanf("%d", &felev);
@@ -161,6 +175,9 @@ int main(){
             }
             break;
         case 2:
+            /* -------------------------------------------------------------------------- */
+            /*                                 TANULMANYOK                                */
+            /* -------------------------------------------------------------------------- */
             tanulmanyok_menu();
             fprintf(log, "%s   -   A felhasznalo belepett a tanulmanyok almenube\n", pontos_ido());
 
@@ -202,11 +219,61 @@ int main(){
 
 
             break;
+
         case 3:
+            /* -------------------------------------------------------------------------- */
+            /*                                   VIZSGAK                                  */
+            /* -------------------------------------------------------------------------- */
+           
             vizsgak_menu();
             fprintf(log, "%s   -   A felhasznalo belepett a vizsgak almenube\n", pontos_ido());
+            
+            FILE* vizsgak_fajl_w = fopen("csv/vizsgak.csv", "w");
+
+            //hany vizsgat szeretne felvenni
+            int vizsgak_szama;
+            printf("Kerem adja meg, hany vizsgat szeretne felvenni!: ");
+            scanf("%d", &vizsgak_szama);
+
+            //eltaroljuk egy tombbe
+            Vizsgak *vizsga = malloc(vizsgak_szama * sizeof(Vizsgak));
+            
+
+            //beolvassuk a felvett vizsgakat (ha van);
+            //felvett_vizsg_print(vizsga, vizsgak_szama);
+
+            for (int i = 0; i < vizsgak_szama; i++)
+            {
+                //vizsga nevenek bekereseß
+                printf("Kerem adja meg a(z) %d. felvenni kivant vizsga nevet:  ", i + 1);
+                scanf("%s", vizsga[i].nev);
+
+                //vizsga napjanak bekerese
+                printf("Kerem adja meg a(z) %d. vizsga nepjat! (Hetfo, Kedd...):  ", i + 1);
+                scanf("%s", vizsga[i].nap);
+
+                //vizsga oraja
+
+                /* -------------------------------------------------------------------------- */
+                /*                                 KORLATOZAS                                 */
+                /* -------------------------------------------------------------------------- */
+
+                printf("Adja meg a(z) %d. vizsga, hogy mikor kezdődik! ", i + 1);
+                scanf("%d", &vizsga[i].ora);
+            }
+            mentes_vizsga(vizsga, vizsgak_szama, vizsgak_fajl_w);
+            
+
+
+
+
+
+
             break;
         case 4:
+            /* -------------------------------------------------------------------------- */
+            /*                                TARGYAK MENU                                */
+            /* -------------------------------------------------------------------------- */
             targyak_menu();
             fprintf(log, "%s   -   A felhasznalo belepett a targyak almenube\n", pontos_ido());
             break;
@@ -219,10 +286,15 @@ int main(){
             fprintf(log, "%s   -   A felhasznalo kivalasztotta a beiratkozas almenut\n", pontos_ido());
             printf("\033[2A"); //ennyi sorral megyunk feljebb
             printf("\033[J");
+            
+            
+
+
 
 
 
             if (hallgato.felev_tipusa == 0){
+                alapadatok_fajl_w = fopen("./csv/alapadatok.csv", "w");
                 printf("A jelenlegi feleved: Passziv");
                 fprintf(log, "%s   -   A felhasznalo kiiratta a feleve tipusat!\n", pontos_ido());
             }else if (hallgato.felev_tipusa == 1)
@@ -235,7 +307,10 @@ int main(){
                 
                 
                 
-                
+
+
+
+
                 //TODO beiratkozas
 
 
