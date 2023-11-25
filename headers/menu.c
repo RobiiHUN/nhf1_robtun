@@ -11,11 +11,11 @@ int fomenu_fgv(){
     char szam_e;
 
     
-    
+         
     
 
     // ide meg kell a betu kiszures
-        while ( valasztas < 1 || valasztas > 5 )
+        while ( valasztas < 1 || valasztas > 6 )
         {
 
 
@@ -25,6 +25,7 @@ int fomenu_fgv(){
             printf("3 - Vizsgak\n");
             printf("4 - Targyak\n");
             printf("5 - Ugyintezes\n");
+            printf("6 - Kilepes\n");
             scanf("%c", &szam_e);
             
             if (isdigit(szam_e))
@@ -46,12 +47,11 @@ int fomenu_fgv(){
 int sajat_adatok_menu(){
     
     int valasztas_sajatadatok = 0;
-    while ( valasztas_sajatadatok < 1 || valasztas_sajatadatok > 3 )
+    while ( valasztas_sajatadatok < 1 || valasztas_sajatadatok > 2 )
     {
         
         printf("\n1 - Szemelyes adatok\n");
         printf("2 - Beallitasok\n");
-        printf("3 - Vissza a fomenube\n");
         scanf("%d", &valasztas_sajatadatok);
 
         
@@ -71,11 +71,10 @@ int sajat_adatok_menu(){
 int tanulmanyok_menu(){
     int valasztas = 0;
 
-    while ( valasztas < 1 || valasztas > 3 )
+    while ( valasztas < 1 || valasztas > 2 )
     {
         printf("1 - Kepzes adatok\n");
         printf("2 - Orarend\n");
-        printf("3 - Vissza a fomenube\n");
         scanf("%d", &valasztas);
 
     }
@@ -93,6 +92,12 @@ int vizsgak_menu(){
         scanf("%d", &valasztas);
 
     }
+    if (valasztas == 3)
+    {
+        printf("\033[6A"); //ennyi sorral megyunk feljebb
+        printf("\033[J");
+    }
+    
     return valasztas;
 }
 // targyak menu
@@ -101,8 +106,8 @@ int targyak_menu(){
 
     while ( valasztas < 1 || valasztas > 2 )
     {
-        printf("1 - Felvett targyak\n");
-        printf("2 - Targy felvetele leadasa\n");
+        printf("1 - Targyak felvetele\n");
+        printf("2 - Targyak leadasa\n");
         scanf("%d", &valasztas);
 
     }
@@ -112,7 +117,7 @@ int targyak_menu(){
 int ugyintezes_menu(){
     int valasztas = 0;
 
-    while ( valasztas != 1 )
+    while ( valasztas < 1 || valasztas > 1 )
     {
         printf("1 - Beiratkozas\n");
         scanf("%d", &valasztas);
@@ -125,25 +130,25 @@ int ugyintezes_menu(){
 int beallitasok_almenu(){
     int valasztas = 0;
 
-    while (valasztas < 1 || valasztas > 2)
+    while (valasztas < 1 || valasztas > 1)
     {
         printf("1 - Szemelyes adataim torlese\n");
-        printf("2 - Vissza a fomenube\n");
         scanf("%d", &valasztas);
     }
 
     printf("\033[1A"); //ennyi sorral megyunk feljebb
-    printf("\033[J");    
+    printf("\033[J");
+
+    
     return valasztas;
 }
 //a beiratkozas almenu
 int beiratkozas_almenu(){
     int valasztas = 0;
 
-    while (valasztas < 1 || valasztas > 2)
+    while (valasztas < 1 || valasztas > 1)
     {
         printf("1 - Beiratkozas\n");
-        printf("2 - Vissza a fomenube\n");
         scanf("%d", &valasztas);
     }
 

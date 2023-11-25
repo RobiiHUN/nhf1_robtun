@@ -20,15 +20,13 @@ typedef struct
     int felev;
 }Hallgatok_alapadatok;
 
-//a tantargyak adatait tarolja el, azt hogy mi a neve, illetve, hopgy mikor van
-
 typedef struct
 {
     char nev[50];
     int napok[7][24]; //1.dim -> napok, 2.dim -> orak
 }Tantargy_struct;
 
-//ez a struct tartalmazza a felvett vizsgak idopontjait
+
 typedef struct 
 {
     char nev[50];
@@ -36,6 +34,7 @@ typedef struct
     int ora;
 
 }Vizsgak;
+
 
 
 //soronkent beolvassuk a csv-t
@@ -63,6 +62,9 @@ int csv_alapadat_kiir(FILE *fajlnev, char *nev_vez, char *nev_ker,char *neptunko
 
 //ez a fgv szortirozza az orakat, es vegzi a kiiratast
 //orarend kiirato, illetve atkonvertalja az orakat napokra
+
+
+/* ---------------------------- PENTEKKEL MI VAN ---------------------------- */
 
 int orarend_konv_print(Tantargy_struct *orarend, int hanytantargy){
     
@@ -175,5 +177,30 @@ void vizsga_csv_beolvaso(Vizsgak **vizsga, int *vizsgaszam, FILE *csvpointer){
     while (fscanf(csvpointer, "%49[^,],%19[^,],%d\n", (*vizsga)[*vizsgaszam].nev, (*vizsga)[*vizsgaszam].nap, &(*vizsga)[*vizsgaszam].ora)== 3)
     {
         (*vizsgaszam)++;
+    }
+}
+
+/* ----------------------- TANTARGYAK KIIRATASA CSVBE ----------------------- */
+
+void tantargy_kiCSV(Tantargy_struct* tantargy, int tantargymennyiseg, FILE *file_ki){
+    for (int i = 0; i < tantargymennyiseg; i++)
+    {
+        fprintf(file_ki, "%s,",tantargy[i].nev);
+        for (int nap = 0; nap < 7; nap++)
+        {
+            for (int ora = 0; ora < 24; ora++)
+            {
+                if (tantargy[i].napok[nap][ora] == 1)
+                {
+                    fprintf(file_ki, "%d", (nap + 1)*24 + ora);
+                    if (nap * 24 + ora < 7 *24 - 1){
+                        fprintf(file_ki, ",");
+                    }
+                }   
+                
+            }
+            
+        }
+        fprintf(file_ki, "\n");
     }
 }

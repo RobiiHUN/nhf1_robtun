@@ -50,5 +50,6 @@ int orarend_konv_print(Tantargy_struct *orarend, int hanytantargy);
 void felvett_vizsg_print(Vizsgak *vizsga, int vizsgaszam);
 void mentes_vizsga(Vizsgak *vizsga, int vizsgaszam, FILE *csvpointer);
 void vizsga_csv_beolvaso(Vizsgak **vizsga, int *vizsgaszam, FILE *csvpointer);
+void tantargy_kiCSV(Tantargy_struct* tantargy, int tantargymennyiseg, FILE *file_ki);
 #endif
 
