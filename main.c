@@ -121,7 +121,7 @@ int main(){
                     
                     
                     if (lepes_s == 1){
-                        
+                        /* -------------------------------------------------------------------------- */
                         
                         
                         if (vissza == 1){
@@ -143,6 +143,7 @@ int main(){
                             
                         }else{
                             /* ------------------------------ REGISZTRACIO ------------------------------ */
+
                             alapadatok_fajl_w = fopen("./csv/alapadatok.csv", "w");
                             printf("\033[4A"); //ennyi sorral megyunk feljebb
                             printf("\033[J");
@@ -160,10 +161,10 @@ int main(){
                             printf("Keresztnev: \n");
                             scanf("%s", nev_ker);
 
-                            printf("Kerem adja meg a Neptun-kodjat: \n");
+                            printf("Kerem adja meg a Neptun-kodjat(string): \n");
                             scanf("%s", neptun);
 
-                            printf("Kerem adja meg a hanyadik felevet tolti az egyetemen!: \n");
+                            printf("Kerem adja meg a hanyadik felevet tolti az egyetemen!(szam): \n");
                             scanf("%d", &felev);
                             
                             
@@ -189,13 +190,17 @@ int main(){
                         
                     }else if (lepes_s == 2)
                     {
+                        /* -------------------------------------------------------------------------- */
+                        /* ------------------------ SZEMELYES ADATOK TORLESE ------------------------ */
+
                         printf("\033[3A"); //ennyi sorral megyunk feljebb
                         printf("\033[J");
                         int valasztas = beallitasok_almenu();
                         if (valasztas == 1)
                         {
                             alapadatok_fajl_w= fopen("./csv/alapadatok.csv", "w");
-                            printf("Sikeres torles!");
+                            printf("Sikeres torles! Kerem, ha ujbol beregisztral ne feledkezzen el a feleve aktivizalasarol!");
+                            printf("Kulonben addig minden itt vegzett muvelet ervenytelen lesz!\n");
                             fprintf(log, "%s   -   A felhasznalo kitorolte a szemelyes adatait\n", pontos_ido());
                             printf(" 0 - vissza a fomenube\n");
                             fomenu = 0;
@@ -222,9 +227,13 @@ int main(){
                        printf("Ön jelenleg a Buadpesti Muszaki es Gazdasagtudomanyi Egyetemen tanul.");
                        fprintf(log, "%s   -   A felhasznalo kiiratta a oktatasi intezmenyet!\n", pontos_ido());
                         
-                                   
+                    /* -------------------------------------------------------------------------- */
+
                     }else if (vissza == 2)
-                    {   FILE *tantargyak_r = fopen("./csv/tantargyak.csv", "r");
+                    {   
+                        /* ---------------------------- ORAREND MEGALKOTO --------------------------- */
+
+                        FILE *tantargyak_r = fopen("./csv/tantargyak.csv", "r");
                         Tantargy_struct* orarend = NULL;
                         fprintf(log, "%s   -   A felhasznalo kiiratta a tantargyait\n", pontos_ido());      
 
@@ -232,6 +241,7 @@ int main(){
                         //visszafejti a .csv-bol az orakat napokra                  
                         while (fgets(max_sor, 50, tantargyak_r))
                         {
+                            
                             
                             orarend = realloc(orarend, (hanytantargy + 1) * sizeof(Tantargy_struct));
                             orarend[hanytantargy].nev[0] = '\0';
@@ -241,7 +251,6 @@ int main(){
                                 {
                                     orarend[hanytantargy].napok[i][j] = 0;
                                 }
-                                
                             }
                     
                             char* token = strtok(max_sor, ",");
@@ -259,6 +268,7 @@ int main(){
                         
                         orarend_konv_print(orarend, hanytantargy);
                         fclose(tantargyak_r);
+                        free(orarend);
                         
                     }
                     
@@ -288,6 +298,8 @@ int main(){
 
                     if (vissza == 1)
                     {
+                        /* ------------------------------ VIZSGA FELVET ----------------------------- */
+
                         FILE* vizsgak_fajl_w = fopen("csv/vizsgak.csv", "w");
 
                         //hany vizsgat szeretne felvenni
@@ -313,7 +325,7 @@ int main(){
                             //vizsga oraja
 
 
-                            printf("Adja meg a(z) %d. vizsga, hogy mikor kezdődik! ", i + 1);
+                            printf("Adja meg a(z) %d. vizsga, hogy mikor kezdődik!(ora) ", i + 1);
                             scanf("%d", &vizsga[i].ora);
                         }
                         //csv-be lementjuk a vizsga bekert adatait
@@ -323,6 +335,8 @@ int main(){
                         fclose(vizsgak_fajl_w);
                         free(vizsga); 
                     }else if(vissza == 2){
+
+                        /* ------------------------ AZ OSSZES VIZSGA LEADASA ------------------------ */
                         
                         FILE* vizsgak_fajl_w = fopen("csv/vizsgak.csv", "w");
                         fclose(vizsgak_fajl_w);
@@ -345,7 +359,7 @@ int main(){
                     /*                                TARGYAK MENU                                */
                     /* -------------------------------------------------------------------------- */
                     
-
+                    /* ---------------------------- TANTARGYFELVETEL ---------------------------- */
 
                     vissza = targyak_menu();
                     fprintf(log, "%s   -   A felhasznalo belepett a targyak almenube\n", pontos_ido());
@@ -463,6 +477,7 @@ int main(){
 
                     break;
                 case 6:
+                    /* -------------------------- KILEPES A PROGRAMBOL -------------------------- */
                     KIJELZO_TORLO
                     printf("Viszlat, varom vissza!\n");
                     printf("Koszonom, hogy rendszeremet hasznalta!");

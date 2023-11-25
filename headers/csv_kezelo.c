@@ -12,6 +12,10 @@
 
 //a hallgato alapadatait tarolja el ez a struct, majd ezeket használjuk fel a legtobb adatnal
 
+/* -------------------------------------------------------------------------- */
+/*                                 STRUKTURAK                                 */
+/* -------------------------------------------------------------------------- */
+
 typedef struct
 {
     char nev[50];
@@ -35,7 +39,9 @@ typedef struct
 
 }Vizsgak;
 
-
+/* -------------------------------------------------------------------------- */
+/*                                 FUGGVENYEK                                 */
+/* -------------------------------------------------------------------------- */
 
 //soronkent beolvassuk a csv-t
 
@@ -84,7 +90,7 @@ int orarend_konv_print(Tantargy_struct *orarend, int hanytantargy){
             }
             if (vanora == 1)
             {
-                printf("%s ", het_napjai[x]);
+                printf("%s ", het_napjai[x - 1]);
                 int elsoora_mikor = 0;
                 for (int  y = 0; y < 24; y++)
                 {
@@ -93,7 +99,12 @@ int orarend_konv_print(Tantargy_struct *orarend, int hanytantargy){
                             if (elsoora_mikor == 0)
                             {
                                 elsoora_mikor = y;
-                                printf("%d-tol %d-ig", y, y + 2);
+                                if (elsoora_mikor != 0)
+                                {
+                                     printf("%d-tol %d-ig", y, y + 2);
+                                }
+                                
+                                //printf("%d-tol %d-ig", y, y + 2);
                             }
                             
                         }else{
@@ -110,7 +121,7 @@ int orarend_konv_print(Tantargy_struct *orarend, int hanytantargy){
                 
 
             }
-            //printf("\n");
+            
             
         }
         printf("\n");
@@ -189,7 +200,7 @@ void tantargy_kiCSV(Tantargy_struct* tantargy, int tantargymennyiseg, FILE *file
             {
                 if (tantargy[i].napok[nap][ora] == 1)
                 {
-                    fprintf(file_ki, "%d", (nap + 1)*24 + ora);
+                    fprintf(file_ki, " %d", (nap + 1)*24 + ora);
                     if (nap * 24 + ora < 7 *24 - 1){
                         fprintf(file_ki, ",");
                     }
