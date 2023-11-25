@@ -220,13 +220,20 @@ int main(){
                     if (vissza == 1)
                     {
                        printf("Ön jelenleg a Buadpesti Muszaki es Gazdasagtudomanyi Egyetemen tanul.");
+                       fprintf(log, "%s   -   A felhasznalo kiiratta a oktatasi intezmenyet!\n", pontos_ido());
                         
                                    
                     }else if (vissza == 2)
                     {   FILE *tantargyak_r = fopen("./csv/tantargyak.csv", "r");
+                        Tantargy_struct* orarend = NULL;
+                        fprintf(log, "%s   -   A felhasznalo kiiratta a tantargyait\n", pontos_ido());      
+
+                        //orarend kiirato rendszer
+                        //visszafejti a .csv-bol az orakat napokra                  
                         while (fgets(max_sor, 50, tantargyak_r))
                         {
-                            Tantargy_struct* orarend = realloc(orarend, (hanytantargy + 1) * sizeof(Tantargy_struct));
+                            
+                            orarend = realloc(orarend, (hanytantargy + 1) * sizeof(Tantargy_struct));
                             orarend[hanytantargy].nev[0] = '\0';
                             for (int i = 0; i < 7; i++)
                             {
@@ -256,10 +263,9 @@ int main(){
                     }
                     
                     
-                    fprintf(log, "%s   -   A felhasznalo belepett a tanulmanyok almenube\n", pontos_ido());
+                    
 
-                    //orarend megalkotasa, majd kiiratása a csv-ból
-                    //todo az orarend almenube kell rakni
+                    //orarend megalkotasa, majd kiiratása a .csv-ból
                     printf("\n0 - vissza a fomenube\n");
                     fomenu = 0;
                     scanf("%d", &fomenu);
@@ -293,12 +299,10 @@ int main(){
                         Vizsgak *vizsga = malloc(vizsgak_szama * sizeof(Vizsgak));
                         
 
-                        //beolvassuk a felvett vizsgakat (ha van);
-                        //felvett_vizsg_print(vizsga, vizsgak_szama);
 
                         for (int i = 0; i < vizsgak_szama; i++)
                         {
-                            //vizsga nevenek bekereseß
+                            //vizsga nevenek bekerese
                             printf("Kerem adja meg a(z) %d. felvenni kivant vizsga nevet:  ", i + 1);
                             scanf("%s", vizsga[i].nev);
 
@@ -308,18 +312,13 @@ int main(){
 
                             //vizsga oraja
 
-                            /* -------------------------------------------------------------------------- */
-                            /*                                 KORLATOZAS HIANYZIK                        */
-                            /* -------------------------------------------------------------------------- */
 
                             printf("Adja meg a(z) %d. vizsga, hogy mikor kezdődik! ", i + 1);
                             scanf("%d", &vizsga[i].ora);
                         }
                         //csv-be lementjuk a vizsga bekert adatait
                         mentes_vizsga(vizsga, vizsgak_szama, vizsgak_fajl_w);
-
-                        //vizsga_csv_beolvaso(&vizsga, &vizsgak_szama, vizsgak_fajl_w);
-
+                        fprintf(log, "%s   -   A felhasznalo vett fel vizsgakat\n", pontos_ido());
 
                         fclose(vizsgak_fajl_w);
                         free(vizsga); 
@@ -328,6 +327,7 @@ int main(){
                         FILE* vizsgak_fajl_w = fopen("csv/vizsgak.csv", "w");
                         fclose(vizsgak_fajl_w);
                         printf("Sikeresen leadtad a vizsgaidat!\n");
+                        fprintf(log, "%s   -   A felhasznalo leadta a vizsgait!\n", pontos_ido());
                     }
                     printf("\n0 - vissza a fomenube\n");
                     fomenu = 0;
@@ -438,12 +438,17 @@ int main(){
                     
                         if (hallgato.felev_tipusa == 0){
                             hallgato.felev_tipusa = 1;
+                            FILE *alapadatokCSV_w = fopen("csv/alapadatok.csv","w");
+                            fprintf(alapadatokCSV_w,"%s, %s, %d, %d", hallgato.nev, hallgato.neptun_kod, hallgato.felev_tipusa, hallgato.felev);
                             printf("A jelenlegi feleved: Most valtozott aktivra!\n");
                             fprintf(log, "%s   -   A felhasznalo kiiratta a feleve tipusat!\n", pontos_ido());
+                            fclose(alapadatokCSV_w);
+
                         }else if (hallgato.felev_tipusa == 1)
                         {
                             printf("A jelenlegi feleved: Aktiv\n \n");
                             fprintf(log, "%s   -   A felhasznalo kiiratta a feleve tipusat!\n", pontos_ido());
+
                         }
                     }
                     
@@ -463,6 +468,7 @@ int main(){
                     printf("Koszonom, hogy rendszeremet hasznalta!");
                     free(orarend);
                     debugmalloc_log_file("main.log");
+                    fprintf(log, "%s   -   A felhasznalo bezarta a programot\n", pontos_ido());
                     fclose(log);
                     return 0;
                     break;

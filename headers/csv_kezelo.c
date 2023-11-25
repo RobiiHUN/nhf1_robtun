@@ -143,9 +143,6 @@ void mentes_vizsga(Vizsgak *vizsga, int vizsgaszam, FILE *csvpointer){
     
 }
 
-/* -------------------------------------------------------------------------- */
-/*                                EZZEL MI VAN    ????                        */
-/* -------------------------------------------------------------------------- */
 
 //vizsgak beolvasasa .csv-bol
 
