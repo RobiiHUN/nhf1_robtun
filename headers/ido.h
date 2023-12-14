@@ -2,11 +2,6 @@
 #define IDO_H
 
 
-
-
-
-
-
 char* pontos_ido();
 
 #endif //

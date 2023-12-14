@@ -198,6 +198,12 @@ int main(){
                         int valasztas = beallitasok_almenu();
                         if (valasztas == 1)
                         {
+                            strcpy(hallgato.nev, "");
+                            strcpy(hallgato.neptun_kod, "");
+                            hallgato.felev_tipusa = 0;
+                            hallgato.felev = 0;
+
+
                             alapadatok_fajl_w= fopen("./csv/alapadatok.csv", "w");
                             printf("Sikeres torles! Kerem, ha ujbol beregisztral ne feledkezzen el a feleve aktivizalasarol!");
                             printf("Kulonben addig minden itt vegzett muvelet ervenytelen lesz!\n");
@@ -207,7 +213,7 @@ int main(){
                             scanf("%d", &fomenu);
                             if (fomenu == 0)
                             {
-                                printf("\033[4A"); //ennyi sorral megyunk feljebb
+                                printf("\033[51A"); //ennyi sorral megyunk feljebb
                                 printf("\033[J");
                             }
                             fclose(alapadatok_fajl_w);
@@ -270,7 +276,83 @@ int main(){
                         fclose(tantargyak_r);
                         free(orarend);
                         
+                    }else if (vissza == 3)
+                    {
+
+                        FILE *tantargyak_r = fopen("./csv/tantargyak.csv", "r");
+                        Tantargy_struct* orarend = NULL;
+                        fprintf(log, "%s   -   A felhasznalo kiiratta a tantargyait\n", pontos_ido());
+                        hanytantargy = 0;      
+
+                        //orarend kiirato rendszer
+                        //visszafejti a .csv-bol az orakat napokra                  
+                        while (fgets(max_sor, 50, tantargyak_r))
+                        {
+                            
+                            
+                            orarend = realloc(orarend, (hanytantargy + 1) * sizeof(Tantargy_struct));
+                            orarend[hanytantargy].nev[0] = '\0';
+                            for (int i = 0; i < 7; i++)
+                            {
+                                for (int j = 0; j < 24; j++)
+                                {
+                                    orarend[hanytantargy].napok[i][j] = 0;
+                                }
+                            }
+                    
+                            char* token = strtok(max_sor, ",");
+                            strcpy(orarend[hanytantargy].nev, token);
+
+                            int nap = 0;
+                            while ((token = strtok(NULL, ",")) != NULL)
+                            {
+                                int ora = atoi(token); //int-e konvertaljuk
+                                orarend[hanytantargy].napok[nap][ora] = 1;
+                                nap = (nap + 1) % 7;
+                            }
+                            hanytantargy++;
+                        }
+                        
+                        //orarend_konv_print(orarend, hanytantargy);
+
+
+
+
+                    FILE* file = fopen("csv/tantargyak.csv", "r");
+                    if (file == NULL) {
+                        fprintf(stderr, "Hiba: Nem sikerült megnyitni a fájlt.\n");
+                        exit(EXIT_FAILURE);
                     }
+                   int classCount;
+                    char** classNames = readClassNamesFromCSV(file, &classCount);
+
+                    // Felhasználótól keresendő szó bekérése
+                    char searchString[256];
+                    printf("Keresendo szo: ");
+                    scanf("%s", searchString);
+
+                    // Keresés és eredmény kiírása
+                    if (searchClass(classNames, classCount, searchString, orarend, hanytantargy)) {
+                      //  printf("Van olyan tantargy, amely tartalmazza a(z) '%s' szot.\n", searchString);
+                    } else {
+                       // printf("Nincs olyan tantargy, amely tartalmazza a(z) '%s' szot.\n", searchString);
+                    }
+                    // Felszabadítjuk a memóriát
+                    for (int i = 0; i < classCount; i++) {
+                        //free(classNames[i]);
+                    }
+                    //free(classNames);
+
+                    // Bezárom a fájlt
+                    fclose(file);
+                    fclose(tantargyak_r);
+                    free(orarend);
+
+
+
+                    
+                    }
+                    
                     
                     
                     
@@ -281,8 +363,9 @@ int main(){
                     scanf("%d", &fomenu);
                     if (fomenu == 0)
                             {
-                                printf("\033[4A"); //ennyi sorral megyunk feljebb
+                                printf("\033[7A"); //ennyi sorral megyunk feljebb
                                 printf("\033[J");
+                                free(orarend);
                             }
     
                     
@@ -422,17 +505,31 @@ int main(){
 
                     }else if (vissza == 2)
                     {
-                        tantargyak_w = fopen("./csv/tantargyak.csv", "w");
-                        fclose(tantargyak_w);
+                        char eredeti_fajlnev[] = "csv/tantargyak.csv";
+                        char ideiglenes_fajlnev[] = "ideiglenes.csv";
+
+                        FILE *be = fopen(eredeti_fajlnev, "r");
+                        if (!be) {
+                            perror("Hiba a fájl megnyitásakor");
+                            return EXIT_FAILURE;
+                        }
+
+                        char keresett_szo[256];
+                        printf("Keresett szó: ");
+                        scanf("%s", keresett_szo);
+
+                        torol_es_feljebb_emel(be, keresett_szo, ideiglenes_fajlnev, eredeti_fajlnev);
+
+                        fclose(be);
                     }
      
 
                     printf("\n0 - vissza a fomenube\n");
-                    fomenu = 0;
+                    fomenu = 0; 
                     scanf("%d", &fomenu);
                     if (fomenu == 0)
                             {
-                                printf("\033[4A"); //ennyi sorral megyunk feljebb
+                                printf("\033[7A"); //ennyi sorral megyunk feljebb
                                 printf("\033[J");
                             }
                     
@@ -471,7 +568,7 @@ int main(){
                     scanf("%d", &fomenu);
                     if (fomenu == 0)
                             {
-                                printf("\033[4A"); //ennyi sorral megyunk feljebb
+                                printf("\033[7A"); //ennyi sorral megyunk feljebb
                                 printf("\033[J");
                             }
 
@@ -498,3 +595,5 @@ int main(){
 /* -------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */
+
+

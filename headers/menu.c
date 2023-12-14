@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
-#include <stdbool.h>
+
 
 //meg a vissza a fomenube funkcio fejlesztes alatt van!
 
@@ -71,10 +71,11 @@ int sajat_adatok_menu(){
 int tanulmanyok_menu(){
     int valasztas = 0;
 
-    while ( valasztas < 1 || valasztas > 2 )
+    while ( valasztas < 1 || valasztas > 3 )
     {
         printf("1 - Kepzes adatok\n");
         printf("2 - Orarend\n");
+        printf("3- Felvett ora kereso\n");
         scanf("%d", &valasztas);
 
     }
