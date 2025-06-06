@@ -1,6 +1,6 @@
 # 🤖 NHF1 - Robtun
 
-### 🏫 BME - Programozás Alapjai 2. - Nagy Házi Feladat
+### Nagy Házi Feladat
 
 ---
 
