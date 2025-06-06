@@ -1,86 +1,69 @@
-# 🤖 NHF1 - Robtun
-
-### Nagy Házi Feladat
-
----
-
-## 📌 Projekt Leírás
-
-**Robtun** egy szöveges felületen futó, karakteralapú túlélő-típusú játék, amely a `Programozás Alapjai 2.` kurzus keretében készült a **2024 tavaszi félévben**.
-
-A cél, hogy a játékos a térképen mozogva elkerülje az ellenségeket, és minél tovább túléljen. A játékmenet turn-alapú, és különféle entitásokat tartalmaz: játékos, akadály, robot ellenfelek.
+# 🤖 ROBTUN – Neptun Konzolos Másolat
+### 📄 Felhasználói Dokumentáció – NHF1 Projekt
+**Készítette: Ötvös Róbert – F9ILEX**  
+📅 2023.11.26
 
 ---
 
-## 📁 Projekt Felépítése
+## 🎯 A Program Célja
 
-```bash
-nhf1_robtun/
-├── cpp/              # Forrásfájlok (játéklogika, entitások)
-├── include/          # Header fájlok
-├── data/             # Térképek, konfigurációk
-├── tests/            # Tesztfájlok
-├── main.cpp          # Program belépési pontja
-├── README.md         # Ez a fájl
-└── Makefile          # Fordításhoz szükséges fájl
-```
+A Robtun célja a Neptun felsőoktatási rendszer hallgatói oldalának egyszerűsített, konzolos másolata, amely bemutatja annak főbb funkcióit.
 
 ---
 
-## ⚙️ Fő Funkciók
+## 🔧 A Program Főbb Funkciói
 
-- 🧍‍♂️ Játékos mozgás (WASD)
-- 🤖 Robot entitások mozgása mesterséges logikával
-- 🧱 Falak, akadályok
-- 📉 Életpont kezelés
-- 💾 Térkép betöltés fájlból
-- 🪦 Game Over és újrakezdés lehetőség
-
----
-
-## 🧪 Tesztelés
-
-A `tests` mappában egységtesztek találhatók.
-
-```bash
-g++ tests/test_runner.cpp -o test_runner
-./test_runner
-```
+- 👤 Hallgatói adatok létrehozása, módosítása
+- 📚 Képzési adatok kilistázása
+- 🗓️ Dinamikus órarend kezelése
+- 🎓 Szakdolgozatra jelentkezés
+- 🧪 Vizsga felvétel / leadás
+- 📖 Tárgyfelvétel / leadás
+- 🧾 Félév státuszának beállítása (aktív/passzív)
 
 ---
 
-## 🛠️ Fordítás
+## 🚀 A Program Első Indítása
 
-A projekt Makefile-al építhető:
-
-```bash
-make
-./robtun
-```
+1. Regisztráció szükséges (`Saját adatok` menüpontban)
+2. A félév aktiválása az `Ügyintézés` menüben
+3. Tárgyak felvétele / órák kezelése a `Tárgyak` menüben
+4. Vizsgák felvétele és leadása a `Vizsgák` menüben
 
 ---
 
-## 🎮 Játékmenet
+## 🔁 A Program Újbóli Használata
 
-- A játék terminálon fut.
-- A térképen a következő szimbólumok jelennek meg:
-  - `@` – játékos
-  - `#` – fal
-  - `R` – robot
-  - `.` – szabad mező
-- A játék célja a minél hosszabb túlélés.
-
----
-
-## 📄 Követelmények
-
-- C++11 vagy újabb
-- Fordító (g++, clang++)
-- Unix-szerű környezet (Linux / macOS ajánlott)
+- `Saját adatok`: korábban megadott adatok megtekintése, törlése
+- Regisztráció továbbra is szükséges a megfelelő működéshez
+- `Tanulmányok`: oktatási intézmény és órarend megtekintése
+- Órarend csak akkor látható, ha előtte felvétel történt
+- `Vizsgák`: vizsgák hozzáadása / leadása
+- `Tárgyak`: tárgyak, időpontok hozzáadása, törlése
+- `Ügyintézés`: félév státuszának állítása
 
 ---
 
-## 👨‍💻 Készítette
+## 📥 Be- és Kimenetek
 
-RobiiHUN  
-2024, 
+- A program minden esetben egyértelműen kéri a bemenetet
+- Hibás bemenet esetén a működés nem garantált
+  - Például ha szám helyett szöveget adunk meg
+
+---
+
+## ❗ Fontos Tudnivalók – Mit NE tegyünk
+
+- Ne módosítsuk a forráskódot kézzel
+- Ne változtassuk meg a `.csv` fájlokat
+- Ne zárjuk be a programot bezárás gombbal, csak a főmenüből lépjünk ki
+- Ne adjunk meg hibás formátumú adatokat
+- A szöveges bemeneteknél kerüljük az ékezetes karaktereket
+
+---
+
+## 📝 Megjegyzés
+
+A Robtun program célja az egyetemi tanulmányi rendszer alapfunkcióinak modellezése egy konzolos, interaktív környezetben, egyszerű kezelőfelülettel és hibakezeléssel.
+
+---
