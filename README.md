@@ -1,42 +1,86 @@
-FELHASZNÁLÓI DOKUMENTÁCIÓ
-ROBTUN PROJECT 
-1.	A program célja:
+# 🤖 NHF1 - Robtun
 
-a.	A program célja a Neptun felsőoktatási rendszer hallgatói oldalának egyszerűsített másolata, illetve annak fő funkcióinak a konzolbeli bemutatása.
+### 🏫 BME - Programozás Alapjai 2. - Nagy Házi Feladat
 
-2.	A program főbb funkciói
-a.	hallgató személyes adatainak nyilvántartása/módosítása/létrehozása 
-b.	a képzési adatok kilistázása 
-c.	dinamikus órarend 
-d.	szakdolgozatra való jelentkezés 
-e.	vizsga felvétel/ leadás 
-f.	tárgyfelvétele/leadása 
-g.	bejelentkezés akQv/passzív félévre 
-3.	A program első indítása:
+---
 
-a.	A program első futtatásakor a felhasználónak regisztrálnia kell magát a Robtun rendszerbe (Sajat adatok)
-b.	A félévet aktivizálni kell az Ügyintézés menüben
-c.	Tárgyak menüben lehetőség nyílik órák felvételére, illetve minden óra leadására
-d.	A vizsgák menüben a felhasználó feltudja venni vizsgáit és egyszerre le is tudja adni az összeset
+## 📌 Projekt Leírás
 
-4.	A program többszöri indítása:
+**Robtun** egy szöveges felületen futó, karakteralapú túlélő-típusú játék, amely a `Programozás Alapjai 2.` kurzus keretében készült a **2024 tavaszi félévben**.
 
-a.	A Saját adatok menübe a felhasználó kiirathatja a beregisztrált adatait, illetve a beállítások almenüben törölheti azokat
-b.	A program megfelelő működéséhez szükséges regisztráció
-c.	A tanulmányok almüben a felhasználó kitudja íratni az oktatási intézményét, illetve az órarendjét
-d.	A megfelelő órarend kiiratása érdekében először órákat szükséges felvenni
-e.	A vizsgák almenüben a felhasználó a vizsgáit tudja kezelni. Itt tud vizsgát rögzíteni, illetve leadni a vizsgáit
-f.	A tárgyak almenübe belépve a felhasználó tud megadni tárgyakat, és azokhoz több időpontot- amelyre a program is rákérdez-, illetve itt tudja törölni az összes óráját
-g.	Ügyintézés almenüből érjük el a félév beaktivizálást, melynek tényét a személyes adatok kiiratásakor is látjuk
-h.	A program elvárja a felhasználótól, hogy azt ezen utasítások alapján kezelje a normáis működés érdekében.
+A cél, hogy a játékos a térképen mozogva elkerülje az ellenségeket, és minél tovább túléljen. A játékmenet turn-alapú, és különféle entitásokat tartalmaz: játékos, akadály, robot ellenfelek.
 
-5.	A program be - és kimenetei
+---
 
-a.	A program kiiráskor egyértelműsíti a várt bemenetet a megfelelő működés érdekében, bármilyen rossz bemenet esetén a program nem rendeltetés szerűén működhet (Pld.: Várt számbemenet esetén a program egy stringet kap)
+## 📁 Projekt Felépítése
 
-6.	Mit NE
-a.	A fájlokba található kódok változtatása nem kiszámítható módon fog hatni a programra
-b.	A .csv fájlba ne változtassunk semmit, ez fontos a beolvasás miatt
-c.	A programot ne zárjuk be, hanem lépjünk ki a főmenüből, csak ez garantálja a megfelelő fájlok meglétét, és a program rendeltetés szerű használatát
-d.	Ha a program egy megadott formátumú (vagy a kiirásból következtethető) bemenetet vár, akkor az attól eltérő bemenetek nem lehetnek jó hatással a programra
-e.	A program alapértelmezésben, ha szót kér, akkor ékezetmentes formában várja azt
+```bash
+nhf1_robtun/
+├── cpp/              # Forrásfájlok (játéklogika, entitások)
+├── include/          # Header fájlok
+├── data/             # Térképek, konfigurációk
+├── tests/            # Tesztfájlok
+├── main.cpp          # Program belépési pontja
+├── README.md         # Ez a fájl
+└── Makefile          # Fordításhoz szükséges fájl
+```
+
+---
+
+## ⚙️ Fő Funkciók
+
+- 🧍‍♂️ Játékos mozgás (WASD)
+- 🤖 Robot entitások mozgása mesterséges logikával
+- 🧱 Falak, akadályok
+- 📉 Életpont kezelés
+- 💾 Térkép betöltés fájlból
+- 🪦 Game Over és újrakezdés lehetőség
+
+---
+
+## 🧪 Tesztelés
+
+A `tests` mappában egységtesztek találhatók.
+
+```bash
+g++ tests/test_runner.cpp -o test_runner
+./test_runner
+```
+
+---
+
+## 🛠️ Fordítás
+
+A projekt Makefile-al építhető:
+
+```bash
+make
+./robtun
+```
+
+---
+
+## 🎮 Játékmenet
+
+- A játék terminálon fut.
+- A térképen a következő szimbólumok jelennek meg:
+  - `@` – játékos
+  - `#` – fal
+  - `R` – robot
+  - `.` – szabad mező
+- A játék célja a minél hosszabb túlélés.
+
+---
+
+## 📄 Követelmények
+
+- C++11 vagy újabb
+- Fordító (g++, clang++)
+- Unix-szerű környezet (Linux / macOS ajánlott)
+
+---
+
+## 👨‍💻 Készítette
+
+RobiiHUN  
+2024, 
